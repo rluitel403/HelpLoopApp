@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "894559623902",
+    "firebase_url": "https://helploopapp.firebaseio.com",
+    "project_id": "helploopapp",
+    "storage_bucket": "helploopapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894559623902:android:593a250aa67f282a",
+        "android_client_info": {
+          "package_name": "com.example.ruhin.helploopapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894559623902-5p5edhh2qqdb65gcso4t8jvaock9bqh9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ruhin.helploopapp",
+            "certificate_hash": "bbbb649fea27c1d5a83fa05b1528e2039a7e9f8a"
+          }
+        },
+        {
+          "client_id": "894559623902-1orbm9b1ovpdprklculd7c4lsr11nk43.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-EtvYT7hMk4B1TXlGtClpsl0t3-zas9I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894559623902-1orbm9b1ovpdprklculd7c4lsr11nk43.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
