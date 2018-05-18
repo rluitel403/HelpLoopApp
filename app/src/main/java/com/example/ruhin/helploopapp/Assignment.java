@@ -1,7 +1,9 @@
 package com.example.ruhin.helploopapp;
 
 /**
- * Created by Ruhin on 5/8/2018.
+ * Created by Rubin
+ * version: 2
+ * this is a class that represents the informations about an assignment
  */
 
 public class Assignment {
@@ -9,6 +11,9 @@ public class Assignment {
     private String assignmentClass;
     private String date;
 
+    public Assignment(){
+
+    }
     public String getDate() {
         return date;
     }

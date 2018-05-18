@@ -21,7 +21,11 @@
             android:label="MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SchoolLoopInfoActivity" />
-        <activity android:name=".CreateAssignmentActivity"></activity>
+        <activity android:name=".CreateAssignmentActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".Chat"></activity>
+        <receiver android:name=".NotificationReceiver"></receiver>
+
     </application>
 
 </manifest>

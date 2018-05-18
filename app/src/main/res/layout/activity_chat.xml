@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ruhin.helploopapp.Chat">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00FFFF"
+        android:id="@+id/chat_room_toolbar"
+        android:layout_alignParentTop="true">
+    </android.support.v7.widget.Toolbar>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/chat_recylerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/chatControls"
+        android:layout_below="@id/chat_room_toolbar">
+    </android.support.v7.widget.RecyclerView>
+        <LinearLayout
+            android:id="@+id/chatControls"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+            <EditText
+                android:id="@+id/chat_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:hint="Enter mssg"
+                android:layout_weight="0.8"/>
+
+            <ImageView
+                android:id="@+id/chat_send_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_send_black_24dp"
+                android:background="@android:color/transparent"
+                android:layout_weight="0.2"/>
+
+        </LinearLayout>
+</RelativeLayout>
