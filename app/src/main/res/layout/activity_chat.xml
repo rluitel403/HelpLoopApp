@@ -8,7 +8,8 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00FFFF"
+        android:background="#6200EE"
+        app:titleTextColor="#fff"
         android:id="@+id/chat_room_toolbar"
         android:layout_alignParentTop="true">
     </android.support.v7.widget.Toolbar>

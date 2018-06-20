@@ -2,7 +2,7 @@ package com.example.ruhin.helploopapp;
 
 /**
  * Created by Rubin
- * version: 2
+ * version: 3
  * this is a class that represents the informations about an assignment
  */
 
@@ -10,6 +10,7 @@ public class Assignment {
     private String assignmentInfo;
     private String assignmentClass;
     private String date;
+    private String details;
 
     public Assignment(){
 
@@ -22,10 +23,19 @@ public class Assignment {
         this.date = date;
     }
 
-    public Assignment(String assignmentInfo, String assignmentClass, String date) {
+    public Assignment(String assignmentInfo, String assignmentClass, String date, String details) {
         this.assignmentInfo = assignmentInfo;
         this.assignmentClass = assignmentClass;
+        this.details = details;
         this.date = date;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public String getAssignmentInfo() {

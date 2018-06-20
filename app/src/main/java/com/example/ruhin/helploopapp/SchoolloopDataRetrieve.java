@@ -23,7 +23,7 @@ import java.util.Map;
 
 /**
  * Created by rubin
- * version 2
+ * version 3
  * this class retrieves that data from the schoolloop website and parses the data then stores it in firebase
  */
 
@@ -35,6 +35,7 @@ public class SchoolloopDataRetrieve extends AsyncTask<String,Void,Document> {
     private ArrayList<String> classes;
     private ArrayList<String> dueDates;
     private ArrayList<String> info;
+    private ArrayList<String> assignmentDetails;
     public SchoolloopDataRetrieve(String userName, String password){
         this.userName = userName;
         this.password = password;
@@ -48,6 +49,7 @@ public class SchoolloopDataRetrieve extends AsyncTask<String,Void,Document> {
         classes = new ArrayList<>();
         dueDates = new ArrayList<>();
         info = new ArrayList<>();
+        assignmentDetails = new ArrayList<>();
     }
 
     @Override
@@ -104,17 +106,37 @@ public class SchoolloopDataRetrieve extends AsyncTask<String,Void,Document> {
                     .execute();
             Document mainPageData = mainPage.parse();
             Elements assignmentDatas = mainPageData.getElementsByClass("ajax_accordion_row jsTrackerRefresh");
-            for (Element elements : assignmentDatas) {
+            for(Element elements : assignmentDatas) {
                 Element tr = elements.select("table").select("tr").first();
                 Elements tds = tr.select("td");
                 info.add(tds.get(3).text());
                 classes.add(tds.get(4).text());
                 dueDates.add(tds.get(5).text().substring(5, tds.get(5).text().length()));
             }
+
+            Elements e = mainPageData.select("a[data-track-link=\"Assignment Show\"]");
+            for (Element x : e) {
+                String link = x.attr("href");
+                Connection.Response newdoc = Jsoup.connect("https://homestead.schoolloop.com" + link)
+                        .cookies(mainPage.cookies())
+                        .method(Connection.Method.GET)
+                        .execute();
+                Document document  = newdoc.parse();
+                Element detailsBody = document.getElementsByClass("sllms-content-body").last();
+                Elements pargraphs = detailsBody.select("p");
+                if(pargraphs != null) {
+                    String result = "";
+                    for(Element p : pargraphs) {
+                        result+=p.text()+"\n";
+                    }
+                    assignmentDetails.add(result);
+                }
+            }
             for(int i = 0; i < info.size();i++) {
                 final String className = classes.get(i);
                 final String infos = info.get(i);
                 final String date = dueDates.get(i);
+                final String details = assignmentDetails.get(i).trim();
                 databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("CompletedAssignments").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -128,7 +150,7 @@ public class SchoolloopDataRetrieve extends AsyncTask<String,Void,Document> {
 
                         if(!exists) {
                             databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("Assignments")
-                                    .child(infos.hashCode()+"").setValue(new Assignment(infos,className,date));
+                                    .child(infos.hashCode()+"").setValue(new Assignment(infos,className,date,details));
                         }
                     }
 

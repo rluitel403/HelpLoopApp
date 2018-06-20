@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -33,7 +34,7 @@ import java.util.Date;
 
 /**
  * created by rubin
- * version 2
+ * version 3
  * this class shows the chat messages for a chat they entered and allows the user to send messages
  */
 public class Chat extends AppCompatActivity {
@@ -45,7 +46,8 @@ public class Chat extends AppCompatActivity {
     private EditText input;
     private ImageView send_btn;
     private String name;
-    FirebaseRecyclerAdapter<ChatInfo,ChatMessageViewHolder> firebaseRecyclerAdapter;
+    private LinearLayoutManager layoutManager;
+    private FirebaseRecyclerAdapter<ChatInfo,ChatMessageViewHolder> firebaseRecyclerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +60,8 @@ public class Chat extends AppCompatActivity {
         input = findViewById(R.id.chat_input);
         mAuth = FirebaseAuth.getInstance();
         recyclerView = findViewById(R.id.chat_recylerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(chatName);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -74,24 +77,27 @@ public class Chat extends AppCompatActivity {
         send_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String mssg = input.getText().toString();
-               databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("SchoolLoopInfo").addValueEventListener(new ValueEventListener() {
-                   @Override
-                   public void onDataChange(DataSnapshot dataSnapshot) {
-                       name = dataSnapshot.child("Name").getValue(String.class);
-                       Log.d("my name", "onDataChange: " + name);
-                       SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy hh.mm.ss");
-                       String formattedDate = dateFormat.format(new Date()).toString();
-                       ChatInfo chatInfo = new ChatInfo(mssg,name, formattedDate);
-                       databaseReference.child("Chats").child(chatName).push().setValue(chatInfo);
-                       input.setText("");
-                   }
+                final String mssg = input.getText().toString().trim();
+                if (!mssg.isEmpty()) {
+                    databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("SchoolLoopInfo").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            name = dataSnapshot.child("Name").getValue(String.class);
+                            Log.d("my name", "onDataChange: " + name);
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy hh.mm.ss");
+                            String formattedDate = dateFormat.format(new Date()).toString();
+                            ChatInfo chatInfo = new ChatInfo(mssg, name, formattedDate);
+                            databaseReference.child("Chats").child(chatName).push().setValue(chatInfo);
+                            input.setText("");
+                            layoutManager.scrollToPosition(firebaseRecyclerAdapter.getItemCount()-1);
+                        }
 
-                   @Override
-                   public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                   }
-               });
+                        }
+                    });
+                }
             }
         });
         retrieveChatMssg();
@@ -130,6 +136,21 @@ public class Chat extends AppCompatActivity {
                 return new ChatMessageViewHolder(view);
             }
         };
+        firebaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                int friendlyMessageCount = firebaseRecyclerAdapter.getItemCount();
+                int lastVisiblePosition =
+                        layoutManager.findLastCompletelyVisibleItemPosition();
+                if (lastVisiblePosition == -1 ||
+                        (positionStart >= (friendlyMessageCount - 1) &&
+                                lastVisiblePosition == (positionStart - 1))) {
+                    recyclerView.scrollToPosition(positionStart);
+                }
+            }
+        });
+
         recyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 
@@ -148,6 +169,7 @@ public class Chat extends AppCompatActivity {
         public ChatMessageViewHolder(View itemView) {
             super(itemView);
             this.view = itemView;
+
 
         }
         public void setChatMssg(String mssg){

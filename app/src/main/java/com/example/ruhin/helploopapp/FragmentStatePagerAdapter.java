@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 /**
  * Created by jatin
  * * This class returns the two fragments we created and saves the state in memory(manages assignmentfragment and chatfragment)
- * version 2
+ * version 3
  */
 public class FragmentStatePagerAdapter extends FragmentPagerAdapter {
     public FragmentStatePagerAdapter(FragmentManager fm) {

@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * created by Jatin alla
- * version 2
+ * version 3
  * This is the register activity that signs up the user and stores the data on firebase
  */
 public class RegisterActivity extends AppCompatActivity {

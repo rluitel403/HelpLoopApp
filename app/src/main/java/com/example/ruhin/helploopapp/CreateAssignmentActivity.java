@@ -25,7 +25,7 @@ import java.util.Date;
 
 /**
  * created by jatin
- * version 2
+ * version 3
  * this class allows the user to manually enter assignment informations and store it in firebase
  */
 public class CreateAssignmentActivity extends AppCompatActivity {
@@ -35,6 +35,7 @@ public class CreateAssignmentActivity extends AppCompatActivity {
     private Button makeAssignment;
     private DatePicker datePicker;
     private Toolbar toolbar;
+    private EditText details;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,7 @@ public class CreateAssignmentActivity extends AppCompatActivity {
          makeAssignment = findViewById(R.id.confirm_assign_btn);
          assignInfo = findViewById(R.id.assign_info);
          toolbar = findViewById(R.id.create_assign_toolbar);
+         details = findViewById(R.id.create_assign_details);
          setSupportActionBar(toolbar);
          getSupportActionBar().setTitle("Create an assignment");
          getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -59,22 +61,26 @@ public class CreateAssignmentActivity extends AppCompatActivity {
          makeAssignment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String month = datePicker.getMonth() + 1 +"";
-                String day = datePicker.getDayOfMonth() + "";
-                String year = datePicker.getYear()+"";
-                String formatedDate = month+"/"+day+"/"+year;
-                Assignment newAssignment = new Assignment(assignInfo.getText().toString().trim(),assignClass.getText().toString().trim(),formatedDate);
-                mRef.child("Users").child(mAuth.getCurrentUser().getUid()).child("Assignments").child(assignInfo.getText().toString().hashCode()+"").setValue(newAssignment).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                             Toast.makeText(CreateAssignmentActivity.this, "New assignment added", Toast.LENGTH_SHORT).show();
-                            Intent toMain = new Intent(CreateAssignmentActivity.this, MainActivity.class);
-                            startActivity(toMain);
-                            finish();
+                if(!(assignClass.getText().toString().isEmpty() || assignInfo.getText().toString().isEmpty())) {
+                    String month = datePicker.getMonth() + 1 + "";
+                    String day = datePicker.getDayOfMonth() + "";
+                    String year = datePicker.getYear() + "";
+                    String formatedDate = month + "/" + day + "/" + year;
+                    Assignment newAssignment = new Assignment(assignInfo.getText().toString().trim(), assignClass.getText().toString().trim(), formatedDate, details.getText().toString().trim());
+                    mRef.child("Users").child(mAuth.getCurrentUser().getUid()).child("Assignments").child(assignInfo.getText().toString().hashCode() + "").setValue(newAssignment).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(CreateAssignmentActivity.this, "New assignment added", Toast.LENGTH_SHORT).show();
+                                Intent toMain = new Intent(CreateAssignmentActivity.this, MainActivity.class);
+                                startActivity(toMain);
+                                finish();
+                            }
                         }
-                    }
-                });
+                    });
+                }else{
+                    Toast.makeText(CreateAssignmentActivity.this, "some infos are empty", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

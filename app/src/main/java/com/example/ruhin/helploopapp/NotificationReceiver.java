@@ -4,16 +4,19 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
+import java.io.File;
+
 /**
  * Created by jatin
  * this class responds to the timed notification and displays the notification at that time
- * version 2
+ * version 3
  */
 
 public class NotificationReceiver extends BroadcastReceiver {
@@ -37,6 +40,8 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setContentText("YOU HAVE INCOMPLETE ASSIGNMENTS")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setAutoCancel(true).setWhen(when)
+                .setSound(Uri.parse("android.resource://"
+                        + context.getPackageName() + "/" + R.raw.clock_alarm3))
                 .setContentIntent(pendingIntent)
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
         notificationManager.notify(100, mNotifyBuilder.build());

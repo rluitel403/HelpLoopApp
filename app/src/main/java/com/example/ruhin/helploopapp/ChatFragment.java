@@ -34,7 +34,7 @@ import java.util.Random;
 
 /**
  * created by: rubin
- * version: 2
+ * version: 3
  * This is the chatfragment which displays all the chats that the user can enter
  */
 public class ChatFragment extends Fragment {
@@ -117,7 +117,7 @@ public class ChatFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull ChatViewHolder holder, int position, @NonNull final ChatName model) {
                     holder.setChatName(model.getName());
-                holder.view.setOnClickListener(new View.OnClickListener() {
+                    holder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent toChat = new Intent(getActivity(),Chat.class);

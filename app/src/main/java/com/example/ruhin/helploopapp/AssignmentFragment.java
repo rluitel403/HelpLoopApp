@@ -29,7 +29,7 @@ import com.google.firebase.database.Query;
 
 /**
  * Created by rubin
- * version 2
+ * version 3
  * this class retrieves all the assignments from firebasedatabase using FirebaseUi for database and displays it into the assignmentfragment
  */
 public class AssignmentFragment extends Fragment {
@@ -81,6 +81,17 @@ public class AssignmentFragment extends Fragment {
                     holder.setAssignemntInfo(model.getAssignmentInfo());
                     holder.setAssignmentClass(model.getAssignmentClass());
                     holder.setAssignmentDate(model.getDate());
+                    holder.view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent toAssignmentDetails = new Intent(getActivity(), AssignmentDetailsActivity.class);
+                            toAssignmentDetails.putExtra("className", model.getAssignmentClass());
+                            toAssignmentDetails.putExtra("dueDate",model.getDate());
+                            toAssignmentDetails.putExtra("info",model.getAssignmentInfo());
+                            toAssignmentDetails.putExtra("details",model.getDetails());
+                            startActivity(toAssignmentDetails);
+                        }
+                    });
                     holder.view.findViewById(R.id.item_check_box).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -94,6 +105,8 @@ public class AssignmentFragment extends Fragment {
                                     reference.child("Users").child(mAuth.getCurrentUser().getUid()).child("Assignments").child(model.getAssignmentInfo().hashCode() + "").removeValue();
                                     CheckBox checkBox = holder.view.findViewById(R.id.item_check_box);
                                     checkBox.setChecked(false);
+                                    Intent toRecommended = new Intent(getActivity(), RecommendedActivity.class);
+                                    startActivity(toRecommended);
                                 }
                             });
                             alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {

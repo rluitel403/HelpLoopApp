@@ -2,7 +2,7 @@ package com.example.ruhin.helploopapp;
 
 /**
  * Created by jatin
- * version 2
+ * version 3
  * this class represents a chatname, firebase takes in objects so we made it a class
  */
 

@@ -21,7 +21,7 @@ import org.w3c.dom.Text;
 
 /**
  * created by jatin
- * version 2
+ * version 3
  * this class allows the user to login and go to the mainpage
  */
 public class LoginActivity extends AppCompatActivity {

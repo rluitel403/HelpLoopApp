@@ -70,7 +70,7 @@
         <Button
             android:id="@+id/schoolloop_confirm_btn"
             android:layout_width="match_parent"
-            android:background="#ffa751"
+            android:background="#eb3349"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"

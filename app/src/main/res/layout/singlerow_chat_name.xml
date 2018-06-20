@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
             android:text="CHAT NAME"
             android:textSize="20sp"
-            android:textColor="#AD2A1A"
+            android:textColor="#333"
             android:id="@+id/chat_name"/>
     </LinearLayout>
 

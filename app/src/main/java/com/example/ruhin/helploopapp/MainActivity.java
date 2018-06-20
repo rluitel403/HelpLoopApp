@@ -32,7 +32,7 @@ import java.util.Date;
 /**
  *
  *author - rubin luitel
- * version : 2
+ * version : 3
  * This class displays the viewpager which shows the chatfragment and the assignment fragment, it also calls schoolloopdataretrieve to run the background task and it also setsup the notification
  *
  */

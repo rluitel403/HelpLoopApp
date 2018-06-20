@@ -2,7 +2,7 @@ package com.example.ruhin.helploopapp;
 
 /**
  * Created by rubin
- * version 2
+ * version 3
  * this class represents the chat messages
  */
 

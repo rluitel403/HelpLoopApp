@@ -7,13 +7,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/assignemnt_info"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColor="#3C6478"
-            android:textSize="16sp"/>
+            android:textColor="#333"
+            android:textSize="16sp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +29,8 @@
             android:id="@+id/assignment_date"
             android:layout_marginTop="8dp"
             android:textStyle="italic"
-            android:textSize="8sp"/>
+            android:textColor="#000"
+            android:textSize="10sp"/>
     </LinearLayout>
     <CheckBox
         android:layout_width="wrap_content"

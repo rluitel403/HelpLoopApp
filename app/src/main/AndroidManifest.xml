@@ -23,9 +23,12 @@
         <activity android:name=".SchoolLoopInfoActivity" />
         <activity android:name=".CreateAssignmentActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".Chat"></activity>
-        <receiver android:name=".NotificationReceiver"></receiver>
+        <activity android:name=".Chat" />
 
+        <receiver android:name=".NotificationReceiver" />
+
+        <activity android:name=".AssignmentDetailsActivity" />
+        <activity android:name=".RecommendedActivity"></activity>
     </application>
 
 </manifest>

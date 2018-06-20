@@ -20,7 +20,7 @@ import java.util.HashMap;
 
 /**
  * created by jatin
- * version 2
+ * version 3
  * this class allows the user to enter information about their schoolloop acc, which will be stored in the firebsae db.
  */
 public class SchoolLoopInfoActivity extends AppCompatActivity {
